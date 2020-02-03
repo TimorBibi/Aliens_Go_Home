@@ -10,7 +10,7 @@ class App extends Component {
     const self = this;
     setInterval(() => {
       self.props.moveObjects(self.canvasMousePosition);
-    }, 1000);
+    }, 10);
   }
 
   trackMouse(event) {

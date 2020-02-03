@@ -19,6 +19,11 @@ const Canvas = props => {
     window.innerWidth,
     gameHeight
   ];
+
+  const started = props.gameState.started;
+  const flyingObjects = props.gameState.flyingObjects.map(obj => (
+    <FlyingObject key={obj.id} position={obj.position} />
+  ));
   return (
     <svg
       id="aliens-go-home-canvas"
@@ -32,23 +37,42 @@ const Canvas = props => {
         </filter>
       </defs>
       <Sky />
-      <Title />
       <Ground />
       <CannonPipe rotation={props.angle} />
       <CannonBase />
       <CurrentScore score={50} />
-      <CannonBall position={{ x: 0, y: -500 }} />
-      <FlyingObject position={{ x: -150, y: -300 }} />
-      <FlyingObject position={{ x: 150, y: -300 }} />
+
       <Heart position={{ x: -300, y: 35 }} />
-      <StartGame onClick={() => console.log("Aliens, Go Home!")} />
+
+      {!started && (
+        <g>
+          <StartGame onClick={() => props.startGame()} />
+          <Title />
+        </g>
+      )}
+      {started && <g>{flyingObjects}</g>}
     </svg>
   );
 };
 
 Canvas.propTypes = {
   angle: PropTypes.number.isRequired,
-  trackMouse: PropTypes.func.isRequired
+  trackMouse: PropTypes.func.isRequired,
+  gameState: PropTypes.shape({
+    started: PropTypes.bool.isRequired,
+    kills: PropTypes.number.isRequired,
+    lives: PropTypes.number.isRequired,
+    flyingObjects: PropTypes.arrayOf(
+      PropTypes.shape({
+        position: PropTypes.shape({
+          x: PropTypes.number.isRequired,
+          y: PropTypes.number.isRequired
+        }).isRequired,
+        id: PropTypes.number.isRequired
+      })
+    ).isRequired
+  }).isRequired,
+  startGame: PropTypes.func.isRequired
 };
 
 export default Canvas;

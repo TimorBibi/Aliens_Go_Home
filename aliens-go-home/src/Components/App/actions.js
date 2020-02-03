@@ -1,5 +1,6 @@
 export const consts = {
-  MOVE_OBJECTS: "MOVE_OBJECTS"
+  MOVE_OBJECTS: "MOVE_OBJECTS",
+  START_GAME: "START_GAME"
 };
 
 const moveObjects = mousePosition => ({
@@ -7,6 +8,11 @@ const moveObjects = mousePosition => ({
   mousePosition
 });
 
+const startGame = () => ({
+  type: consts.START_GAME
+})
+
 export const methods = {
-    moveObjects: moveObjects
+    moveObjects: moveObjects,
+    startGame: startGame
 }

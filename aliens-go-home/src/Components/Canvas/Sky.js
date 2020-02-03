@@ -6,7 +6,6 @@ const Sky = () => {
     fill: "#30abef"
   };
   const gameHeight = window.innerHeight
-  console.log("heigth:", gameHeight);
   return (
     <rect
       style={skyStyle}
